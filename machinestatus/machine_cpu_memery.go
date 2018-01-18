@@ -5,6 +5,8 @@ package machinestatus
 
 import(
 		"strconv"
+		"strings"
+		"fmt"
 		)
 /*
    CPU状态结构体
@@ -40,9 +42,9 @@ func (mem *MemeryStatus) String() string {
 	var res = "";
 
 	res = "内存: \n";
-	res += "free : " + strconv.Itoa(mem.Free) + "KB\n";
-	res += "buff : " + strconv.Itoa(mem.Buff) + "KB\n";
-	res += "cache : " + strconv.Itoa(mem.Cache) + "KB\n";
+	res += "free : " + strconv.Itoa(mem.Free) + " KB\n";
+	res += "buff : " + strconv.Itoa(mem.Buff) + " KB\n";
+	res += "cache : " + strconv.Itoa(mem.Cache) + " KB\n";
 	res += "总剩余 : " + strconv.Itoa(mem.Free + mem.Buff + mem.Cache) + " KB\n";
 
 	return res;
@@ -61,23 +63,19 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
  4  0      0  91548   3104 305736    0    0   121    15    1    1  0  0 99  0  0
 */
 func getCPUAndMemery() (CPUStatus, MemeryStatus) {
-	var cpu = CPUStatus{};
-	var mem = MemeryStatus{};
-/*
-res := exec_shell("vmstat");
-			var arr = strings.Fields(strings.FieldsFunc(res, Split('\n'))[2]);
-			fmt.Println(arr);
-			var cpuleft = arr[14];
-			fmt.Println("CPU:");
-			fmt.Println(cpuleft + "% 空闲.")
-			fmt.Println("内存:");
-			var free, _ =  strconv.Atoi(arr[3]);
-			var buff, _ = strconv.Atoi(arr[4]);
-			var cache, _ = strconv.Atoi(arr[5]);
 
-			fmt.Println(free, buff, cache);
-			fmt.Println("剩余 "+ strconv.Itoa(free+buff+cache) + " KB");
-*/
+	res := exec_shell("vmstat");
+	var arr = strings.Fields(strings.FieldsFunc(res, split('\n'))[2]);
+	fmt.Println(arr);
+	var cpuUnused,_ = strconv.Atoi(arr[14]);
+	var cpu = CPUStatus{Used: 100-cpuUnused, Unused:cpuUnused};
+
+	var free, _ =  strconv.Atoi(arr[3]);
+	var buff, _ = strconv.Atoi(arr[4]);
+	var cache, _ = strconv.Atoi(arr[5]);
+
+	var mem = MemeryStatus{Free:free, Buff:buff, Cache:cache};
+
 	return cpu, mem;
 }
 

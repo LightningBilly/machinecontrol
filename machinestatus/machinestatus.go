@@ -6,6 +6,9 @@ package machinestatus
 
 import (
 		"fmt"
+		"log"
+		"os/exec"
+		"bytes"
 		)
 /*
    机器状态结构体，包括cpu, 内存等
@@ -31,25 +34,25 @@ func (mac *MachineStatus) String() string {
 /*
    运行一条命令并返回字符串结果
    */
-//func exec_shell(s string) string {
-//	cmd:=exec.Command("/bin/bash", "-c", s);
-//	var out bytes.Buffer;
-//
-//	cmd.Stdout=&out;
-//	err:=cmd.Run();
-//	if err!=nil {
-//		log.Fatal(err);
-//	}
-//	//fmt.Printf("%v\n", strings.FieldsFunc(out.String(), Split('\n'))[2]);
-//	return out.String();
-//}
-//
-////闭包方法返回一个字符串分割规则
-//func split(s rune) func(rune) bool {
-//	return func(c rune) bool {
-//		 return c == s; 
-//	}
-//}
+func exec_shell(s string) string {
+	cmd:=exec.Command("/bin/bash", "-c", s);
+	var out bytes.Buffer;
+
+	cmd.Stdout=&out;
+	err:=cmd.Run();
+	if err!=nil {
+		log.Fatal(err);
+	}
+	//fmt.Printf("%v\n", strings.FieldsFunc(out.String(), Split('\n'))[2]);
+	return out.String();
+}
+
+//闭包方法返回一个字符串分割规则
+func split(s rune) func(rune) bool {
+	return func(c rune) bool {
+		 return c == s; 
+	}
+}
 
 /*
    生成一个machinestatus
