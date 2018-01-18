@@ -3,10 +3,10 @@
 machinecontrol
 |
 ---machinestatus
-|		|
-|		--- machine_cpu_memery.go 
-|		|
-|		--- machinestatus.go
+|	|
+|	--- machine_cpu_memery.go 
+|	|
+|	--- machinestatus.go
 |
 ---machinecontrol.go
 |
