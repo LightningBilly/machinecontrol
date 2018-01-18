@@ -4,7 +4,7 @@ machinecontrol
 |
 ---machinestatus
 |		|
-|	    --- machine_cpu_memery.go 
+|		--- machine_cpu_memery.go 
 |		|
 |		--- machinestatus.go
 |
