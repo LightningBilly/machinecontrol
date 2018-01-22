@@ -5,7 +5,7 @@
 package machinestatus
 
 import (
-		"fmt"
+		//"fmt"
 		"log"
 		"os/exec"
 		"bytes"
@@ -17,6 +17,7 @@ type MachineStatus struct {
 	Cpu CPUStatus;		//cpu状态
 	Mem MemeryStatus;	//内存状态
 	Disk DiskPartionInfo;	//硬盘状态
+	Net NetworkStatus;		//网络状态
 }
 
 func (mac *MachineStatus) String() string {
@@ -25,6 +26,7 @@ func (mac *MachineStatus) String() string {
 	res += mac.Cpu.String();
 	res += mac.Mem.String();
 	res += mac.Disk.String();
+	res += mac.Net.String();
 
 	return res;
 }
@@ -60,10 +62,11 @@ func split(s rune) func(rune) bool {
    生成一个machinestatus
    */
 func GetMachineStatus() MachineStatus {
-	fmt.Println("func:GetMachineStatus");
+	//fmt.Println("func:GetMachineStatus");
 	var cpu, mem = getCPUAndMemery();
 	var disk = getDiskPartionInfo();
-	var mac = MachineStatus {Cpu:cpu, Mem:mem, Disk:disk};
+	var net NetworkStatus = getNetworkStatus();
+	var mac = MachineStatus {Cpu:cpu, Mem:mem, Disk:disk, Net:net};
 	return mac;
 }
 //---------------公用方法 end----------------//

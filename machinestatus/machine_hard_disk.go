@@ -1,3 +1,6 @@
+/*
+   获取硬盘信息相关模块
+   */
 package machinestatus
 
 import(

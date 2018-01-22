@@ -6,7 +6,7 @@ package machinestatus
 import(
 		"strconv"
 		"strings"
-		"fmt"
+		//"fmt"
 		)
 /*
    CPU状态结构体
@@ -66,7 +66,7 @@ func getCPUAndMemery() (CPUStatus, MemeryStatus) {
 
 	res := exec_shell("vmstat");
 	var arr = strings.Fields(strings.FieldsFunc(res, split('\n'))[2]);
-	fmt.Println(arr);
+	//fmt.Println(arr);
 	var cpuUnused,_ = strconv.Atoi(arr[14]);
 	var cpu = CPUStatus{Used: 100-cpuUnused, Unused:cpuUnused};
 
