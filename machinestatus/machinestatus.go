@@ -16,6 +16,7 @@ import (
 type MachineStatus struct {
 	Cpu CPUStatus;		//cpu状态
 	Mem MemeryStatus;	//内存状态
+	Disk DiskPartionInfo;	//硬盘状态
 }
 
 func (mac *MachineStatus) String() string {
@@ -23,6 +24,7 @@ func (mac *MachineStatus) String() string {
 
 	res += mac.Cpu.String();
 	res += mac.Mem.String();
+	res += mac.Disk.String();
 
 	return res;
 }
@@ -58,9 +60,10 @@ func split(s rune) func(rune) bool {
    生成一个machinestatus
    */
 func GetMachineStatus() MachineStatus {
+	fmt.Println("func:GetMachineStatus");
 	var cpu, mem = getCPUAndMemery();
-	var mac = MachineStatus {Cpu:cpu, Mem:mem};
-	fmt.Println("end");
+	var disk = getDiskPartionInfo();
+	var mac = MachineStatus {Cpu:cpu, Mem:mem, Disk:disk};
 	return mac;
 }
 //---------------公用方法 end----------------//
